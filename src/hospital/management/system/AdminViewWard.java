@@ -114,7 +114,7 @@ public class AdminViewWard extends javax.swing.JFrame {
             PreparedStatement st=null;
             con = Link.getConnection();
             
-            if(!bed_no.isEmpty()){
+            if(!bed_no.isEmpty() || !bed_no.equals("0")){
                 String sql="delete from ward where ward_no=?";
                 try{
                     st=con.prepareStatement(sql);
@@ -144,7 +144,7 @@ public class AdminViewWard extends javax.swing.JFrame {
                 start();
                 
             }else{
-                JOptionPane.showMessageDialog(null,"Please enter Quantity of Beds", 
+                JOptionPane.showMessageDialog(null,"Please enter valid Quantity of Beds", 
                                "WARNING", JOptionPane.WARNING_MESSAGE);
             }
             
@@ -193,7 +193,7 @@ public class AdminViewWard extends javax.swing.JFrame {
                     win.dispose();
                     normal(evt);
                 }catch(Exception et){  
-                    JOptionPane.showMessageDialog(null, et);
+                    //JOptionPane.showMessageDialog(null, et);
                 }  
             }
                 }
@@ -269,7 +269,7 @@ public class AdminViewWard extends javax.swing.JFrame {
         }
         catch(Exception e){
              JOptionPane.showMessageDialog(null, e);
-                }
+            }
     }
 
     /**

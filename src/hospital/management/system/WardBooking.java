@@ -260,11 +260,6 @@ public class WardBooking extends javax.swing.JFrame {
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
-        jSetupWard.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSetupWardActionPerformed(evt);
-            }
-        });
         jTypePanel.add(jSetupWard, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 140, 30));
 
         jLabel26.setFont(new java.awt.Font("Raleway SemiBold", 0, 13)); // NOI18N
@@ -315,11 +310,6 @@ public class WardBooking extends javax.swing.JFrame {
                 jTypePopupMenuWillBecomeInvisible(evt);
             }
             public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
-            }
-        });
-        jType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTypeActionPerformed(evt);
             }
         });
         jTypePanel.add(jType, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 140, 30));
@@ -564,6 +554,11 @@ public class WardBooking extends javax.swing.JFrame {
 
     private void jSetupWardPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_jSetupWardPopupMenuWillBecomeInvisible
         // TODO add your handling code here:
+        jLabel17.setVisible(false);
+        jSetupBed.setVisible(false);
+        
+        jBook.setVisible(false);
+        
         ward_no=(String)jSetupWard.getSelectedItem();
         if(type.equals("Normal")){
             jSetupBed.removeAllItems();
@@ -580,6 +575,15 @@ public class WardBooking extends javax.swing.JFrame {
                 rs=st.executeQuery();
                 while(rs.next()){
                 jSetupBed.addItem(rs.getString("bed_no"));
+                }
+                
+                int items = jSetupBed.getItemCount();
+                if(items>1){
+                    jSetupBed.setVisible(true);
+                    jLabel17.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"All Beds in Ward no "+ward_no+"are booked", 
+                               "WARNING", JOptionPane.WARNING_MESSAGE);
                 }
             }
             catch(Exception e){
@@ -654,6 +658,11 @@ public class WardBooking extends javax.swing.JFrame {
         jLabel17.setVisible(false);
         jSetupBed.setVisible(false);
         
+        jLabel20.setVisible(false);
+        jSetupWard.setVisible(false);
+        
+        jBook.setVisible(false);
+        
         jSetupWard.removeAllItems();
         jSetupWard.addItem("Select");
         type=(String)jType.getSelectedItem();
@@ -670,6 +679,17 @@ public class WardBooking extends javax.swing.JFrame {
             while(rs.next()){
                 jSetupWard.addItem(rs.getString("ward_no"));
             }
+            
+            int items = jSetupWard.getItemCount();
+            System.out.println(items);
+                if(items>1){
+                    jLabel20.setVisible(true);
+                    jSetupWard.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"All "+type+" Wards are booked", 
+                               "WARNING", JOptionPane.WARNING_MESSAGE);
+                }
+                
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null,e);
@@ -712,30 +732,6 @@ public class WardBooking extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jCloseMouseClicked
-
-    private void jTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTypeActionPerformed
-        // TODO add your handling code here:
-        int items = jSetupWard.getItemCount();
-                if(items>1){
-                    jLabel20.setVisible(true);
-                    jSetupWard.setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null,"All "+type+" Wards are booked", 
-                               "WARNING", JOptionPane.WARNING_MESSAGE);
-                }
-    }//GEN-LAST:event_jTypeActionPerformed
-
-    private void jSetupWardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSetupWardActionPerformed
-        // TODO add your handling code here:
-        int items = jSetupBed.getItemCount();
-                if(items>1){
-                    jSetupBed.setVisible(true);
-                    jLabel17.setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null,"All Beds in Ward no "+ward_no+"are booked", 
-                               "WARNING", JOptionPane.WARNING_MESSAGE);
-                }
-    }//GEN-LAST:event_jSetupWardActionPerformed
 
     /**
      * @param args the command line arguments
